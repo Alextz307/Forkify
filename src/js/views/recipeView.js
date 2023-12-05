@@ -1,25 +1,27 @@
-import 'core-js/stable';
-import 'core-js/actual';
-import 'regenerator-runtime/runtime';
+import "core-js/stable";
+import "core-js/actual";
+import "regenerator-runtime/runtime";
 
-import View from './view.js';
-import icons from 'url:../../img/icons.svg';
-import { Fraction } from 'fractional';
+import View from "./view.js";
+import icons from "url:../../img/icons.svg";
+import fracty from "fracty";
 
 class RecipeView extends View {
-  _parentElement = document.querySelector('.recipe');
-  _errorMessage = 'We could not find that recipe. Please try another one!';
-  _defaultMessage = '';
+  _parentElement = document.querySelector(".recipe");
+  _errorMessage = "We could not find that recipe. Please try another one!";
+  _defaultMessage = "";
 
   addHandlerRender(handler) {
-    ['hashchange', 'load'].forEach(event => window.addEventListener(event, handler));
+    ["hashchange", "load"].forEach((event) =>
+      window.addEventListener(event, handler)
+    );
   }
 
   addHandlerServings(handler) {
-    this._parentElement.addEventListener('click', function (e) {
+    this._parentElement.addEventListener("click", function (e) {
       e.preventDefault();
 
-      const btn = e.target.closest('.btn--update-servings');
+      const btn = e.target.closest(".btn--update-servings");
 
       if (!btn) {
         return;
@@ -34,10 +36,10 @@ class RecipeView extends View {
   }
 
   addHandlerToggleBookmark(handler) {
-    this._parentElement.addEventListener('click', function (e) {
+    this._parentElement.addEventListener("click", function (e) {
       e.preventDefault();
 
-      const btn = e.target.closest('.btn--bookmark');
+      const btn = e.target.closest(".btn--bookmark");
 
       if (!btn) {
         return;
@@ -50,7 +52,9 @@ class RecipeView extends View {
   _generateMarkup() {
     return `
       <figure class="recipe__fig">
-        <img src="${this._data.image}" alt="${this._data.title}" class="recipe__img" />
+        <img src="${this._data.image}" alt="${
+      this._data.title
+    }" class="recipe__img" />
         <h1 class="recipe__title">
           <span>${this._data.title}</span>
         </h1>
@@ -70,7 +74,9 @@ class RecipeView extends View {
           <svg class="recipe__info-icon">
             <use href="${icons}#icon-users"></use>
           </svg>
-          <span class="recipe__info-data recipe__info-data--people">${this._data.servings}</span>
+          <span class="recipe__info-data recipe__info-data--people">${
+            this._data.servings
+          }</span>
           <span class="recipe__info-text">servings</span>
 
           <div class="recipe__info-buttons">
@@ -91,14 +97,16 @@ class RecipeView extends View {
           </div>
         </div>
 
-        <div class="recipe__user-generated ${this._data.key ? '' : 'hidden'}">
+        <div class="recipe__user-generated ${this._data.key ? "" : "hidden"}">
           <svg>
             <use href="${icons}#icon-user"></use>
           </svg>
         </div>
         <button class="btn--round btn--bookmark">
           <svg class="">
-            <use href="${icons}#icon-bookmark${this._data.bookmarked ? '-fill' : ''}"></use>
+            <use href="${icons}#icon-bookmark${
+      this._data.bookmarked ? "-fill" : ""
+    }"></use>
           </svg>
         </button>
       </div>
@@ -106,7 +114,7 @@ class RecipeView extends View {
       <div class="recipe__ingredients">
         <h2 class="heading--2">Recipe ingredients</h2>
         <ul class="recipe__ingredient-list">
-          ${this._data.ingredients.map(this._generateIngredientMarkup).join('')}
+          ${this._data.ingredients.map(this._generateIngredientMarkup).join("")}
         </ul>
       </div>
 
@@ -114,7 +122,9 @@ class RecipeView extends View {
         <h2 class="heading--2">How to cook it</h2>
         <p class="recipe__directions-text">
           This recipe was carefully designed and tested by
-          <span class="recipe__publisher">${this._data.publisher}</span>. Please check out
+          <span class="recipe__publisher">${
+            this._data.publisher
+          }</span>. Please check out
           directions at their website.
         </p>
         <a
@@ -138,7 +148,7 @@ class RecipeView extends View {
           <use href="${icons}#icon-check"></use>
         </svg>
         <div class="recipe__quantity">${
-          ingredient.quantity ? new Fraction(ingredient.quantity).toString() : ''
+          ingredient.quantity ? fracty(ingredient.quantity).toString() : ""
         }</div>
         <div class="recipe__description">
           <span class="recipe__unit">${ingredient.unit}</span>
