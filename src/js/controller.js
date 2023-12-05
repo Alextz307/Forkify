@@ -1,4 +1,5 @@
 import 'core-js/stable';
+import 'core-js/actual';
 import 'regenerator-runtime/runtime';
 
 import * as model from './model.js';

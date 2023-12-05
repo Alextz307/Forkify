@@ -17,5 +17,6 @@
     "core-js": "^3.33.3",
     "fractional": "^1.0.0",
     "regenerator-runtime": "^0.14.0"
-  }
+  },
+  "browserslist": "last 2 versions, > 0.5% and ie >= 11"
 }
